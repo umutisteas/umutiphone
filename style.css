@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e1e2f, #4a3e6d);
+  overflow: hidden;
+}
+
+/* Smartphone Chassis */
+.phone-frame {
+  width: 340px;
+  height: 680px;
+  background: #000;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.dynamic-island {
+  width: 110px;
+  height: 28px;
+  background: #000;
+  border-radius: 20px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Screen */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  background: url('https://picsum.photos/400/800') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 24px 0 24px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 5;
+}
+
+.battery {
+  width: 22px;
+  height: 11px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  padding: 1px;
+}
+
+.battery-level {
+  width: 80%;
+  height: 100%;
+  background: #fff;
+}
+
+/* Home Screen & Icons */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 60px 20px;
+}
+
+.app-icon {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 18px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.app-icon:active {
+  transform: scale(0.9);
+}
+
+.app-icon .icon { font-size: 28px; }
+.app-icon .label { font-size: 11px; color: #fff; margin-top: 6px; }
+
+/* App Windows & Sliding Animation */
+.app-window {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 30, 0.95);
+  backdrop-filter: blur(20px);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 8;
+}
+
+.app-window.active {
+  transform: translateY(0);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 16px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-header button {
+  background: none;
+  border: none;
+  color: #007aff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.app-body {
+  padding: 20px;
+  flex: 1;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.photo {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+textarea {
+  width: 100%;
+  height: 80%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Bottom Bar */
+.home-bar {
+  width: 120px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 20;
+}
