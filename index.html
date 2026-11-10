@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Interactive Phone</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Canvas -->
+  <div class="bg-wrapper"></div>
+
+  <!-- Smartphone Outer Chassis -->
+  <div class="phone-frame">
+    <!-- Camera/Dynamic Island Notch -->
+    <div class="dynamic-island"></div>
+
+    <!-- Screen Area -->
+    <div class="phone-screen">
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span id="clock">12:00</span>
+        <div class="battery"><div class="battery-level"></div></div>
+      </div>
+
+      <!-- Home Screen Grid -->
+      <div id="home-screen" class="screen active">
+        <div class="app-grid">
+          <button class="app-icon" onclick="openApp('music-app')">
+            <span class="icon">🎵</span>
+            <span class="label">Music</span>
+          </button>
+          <button class="app-icon" onclick="openApp('gallery-app')">
+            <span class="icon">🖼️</span>
+            <span class="label">Gallery</span>
+          </button>
+          <button class="app-icon" onclick="openApp('notes-app')">
+            <span class="icon">📝</span>
+            <span class="label">Notes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- App Screen 1: Music Player -->
+      <div id="music-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Home</button>
+          <span>Music Player</span>
+        </div>
+        <div class="app-body">
+          <div class="album-art">🎶</div>
+          <h3>Favorite Track</h3>
+          <p>Artist Name</p>
+          <button id="play-btn" onclick="togglePlay()">Play / Pause</button>
+        </div>
+      </div>
+
+      <!-- App Screen 2: Gallery -->
+      <div id="gallery-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Home</button>
+          <span>Gallery</span>
+        </div>
+        <div class="app-body gallery-grid">
+          <div class="photo">🌸</div>
+          <div class="photo">🌊</div>
+          <div class="photo">✨</div>
+          <div class="photo">🎨</div>
+        </div>
+      </div>
+
+      <!-- App Screen 3: Notes -->
+      <div id="notes-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Home</button>
+          <span>Notes</span>
+        </div>
+        <div class="app-body">
+          <textarea placeholder="Write a note..."></textarea>
+        </div>
+      </div>
+
+      <!-- Home Gesture Bar -->
+      <div class="home-bar" onclick="closeApp()"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
