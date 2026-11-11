@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Interactive iOS Phone</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Smartphone Outer Chassis -->
+  <div class="phone-frame">
+    <!-- Dynamic Island Notch -->
+    <div class="dynamic-island"></div>
+
+    <!-- Screen Area -->
+    <div class="phone-screen">
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span id="carrier">GLOBE</span>
+        <div class="status-icons">
+          <div class="battery"><div class="battery-level"></div></div>
+        </div>
+      </div>
+
+      <!-- iOS Lock Screen -->
+      <div id="lock-screen" class="lock-screen" onclick="handleLockScreenTap(event)">
+        <div class="lock-top-content">
+          <div class="lock-date" id="lock-date">Tue, Nov 10</div>
+          <div class="lock-time" id="lock-time">7:55</div>
+        </div>
+        
+        <!-- Passcode Overlay -->
+        <div id="passcode-container" class="passcode-container hidden">
+          <div class="passcode-header">
+            <p class="passcode-prompt">Enter Passcode</p>
+            <div class="dots-container" id="dots-container">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <!-- iOS Numpad -->
+          <div class="numpad">
+            <button class="num-btn" onclick="pressNum('1')"><strong>1</strong></button>
+            <button class="num-btn" onclick="pressNum('2')"><strong>2</strong><span>ABC</span></button>
+            <button class="num-btn" onclick="pressNum('3')"><strong>3</strong><span>DEF</span></button>
+            <button class="num-btn" onclick="pressNum('4')"><strong>4</strong><span>GHI</span></button>
+            <button class="num-btn" onclick="pressNum('5')"><strong>5</strong><span>JKL</span></button>
+            <button class="num-btn" onclick="pressNum('6')"><strong>6</strong><span>MNO</span></button>
+            <button class="num-btn" onclick="pressNum('7')"><strong>7</strong><span>PQRS</span></button>
+            <button class="num-btn" onclick="pressNum('8')"><strong>8</strong><span>TUV</span></button>
+            <button class="num-btn" onclick="pressNum('9')"><strong>9</strong><span>WXYZ</span></button>
+            <button class="num-btn center-zero" onclick="pressNum('0')"><strong>0</strong></button>
+          </div>
+
+          <!-- Passcode Bottom Bar -->
+          <div class="passcode-footer">
+            <button class="text-action-btn" onclick="alert('Emergency call simulated')">Emergency</button>
+            <button class="text-action-btn" onclick="cancelPasscode()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Lockscreen Bottom Shortcuts -->
+        <div id="lock-footer" class="lock-footer">
+          <div class="lock-shortcuts">
+            <button class="shortcut-btn" onclick="toggleFlashlight(event)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 2h10a1 1 0 0 1 1 1v3.5a1 1 0 0 1-.3.7L15 10v11a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V10L6.3 7.2A1 1 0 0 1 6 6.5V3a1 1 0 0 1 1-1zm2 2v2h6V4H9zm3 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+              </svg>
+            </button>
+            <button class="shortcut-btn" onclick="openCamera()">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom iOS Home Screen with Widgets & App Placement -->
+      <div id="home-screen" class="screen home-screen-container">
+        <div class="home-layout-grid">
+          
+          <div class="home-row">
+            <div class="app-cluster">
+              <button class="app-icon" onclick="openApp('spotify-app')">
+                <div class="icon-box spotify-bg"></div>
+                <span class="label">Spotify</span>
+              </button>
+              <button class="app-icon" onclick="openApp('gallery-app')">
+                <div class="icon-box photos-bg"></div>
+                <span class="label">Photos</span>
+              </button>
+              <button class="app-icon" onclick="openApp('instagram-app')">
+                <div class="icon-box instagram-bg"></div>
+                <span class="label">Instagram</span>
+              </button>
+              <button class="app-icon" onclick="openApp('settings-app')">
+                <div class="icon-box settings-bg"></div>
+                <span class="label">Settings</span>
+              </button>
+            </div>
+
+            <div class="widget-box widget-small widget-1"></div>
+          </div>
+
+          <div class="widget-box widget-medium widget-med"></div>
+
+          <div class="home-row">
+            <div class="widget-box widget-small widget-2"></div>
+
+            <div class="app-cluster">
+              <button class="app-icon" onclick="openApp('notes-app')">
+                <div class="icon-box notes-bg"></div>
+                <span class="label">Notes</span>
+              </button>
+              <button class="app-icon" onclick="openApp('clock-app')">
+                <div class="icon-box clock-bg"></div>
+                <span class="label">Clock</span>
+              </button>
+              <button class="app-icon" onclick="openApp('pinterest-app')">
+                <div class="icon-box pinterest-bg"></div>
+                <span class="label">Pinterest</span>
+              </button>
+              <button class="app-icon" onclick="openApp('roblox-app')">
+                <div class="icon-box roblox-bg"></div>
+                <span class="label">Roblox</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- App Windows -->
+
+      <!-- Spotify App -->
+      <div id="spotify-app" class="app-window">
+        <div class="spotify-header">
+          <button class="back-chevron" onclick="closeApp()">‹</button>
+          <span id="spotify-header-title" class="spotify-header-title">him+me = &lt;3</span>
+        </div>
+
+        <div id="spotify-body" class="app-body spotify-body" onscroll="handleSpotifyScroll()">
+          <div id="playlist-cover-card" class="playlist-info">
+            <div class="playlist-cover playlist-img-bg"></div>
+            <h2 class="playlist-title">him+me = &lt;3</h2>
+            <p class="playlist-meta"><span>Muti</span> • i love my boyfriend</p>
+          </div>
+
+          <div class="spotify-actions-bar">
+            <div class="action-left-group">
+              <div class="stack-thumbnail stack-img-bg"></div>
+              <button class="circle-action-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+              </button>
+              <button class="circle-action-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8m-4-6l-4-4m0 0L8 6m4-4v12"/></svg>
+              </button>
+              <button class="circle-action-btn">⋯</button>
+            </div>
+            
+            <div class="action-right-group">
+              <button class="shuffle-btn active" onclick="toggleShuffle(this)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                </svg>
+                <span class="shuffle-active-dot"></span>
+              </button>
+              <button id="main-header-play-btn" class="big-green-play-btn" onclick="togglePlay()">
+                <svg id="main-play-svg" width="20" height="20" viewBox="0 0 24 24" fill="#000000">
+                  <rect x="6" y="4" width="4" height="16" rx="1"/>
+                  <rect x="14" y="4" width="4" height="16" rx="1"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-pills-row">
+            <button class="pill-btn">+ Add</button>
+            <button class="pill-btn">≡ Edit</button>
+            <button class="pill-btn">Sort</button>
+            <button class="pill-btn">Name & details</button>
+          </div>
+          
+          <div class="playlist-tracks">
+            <div class="track-item" onclick="playSong(0)"><div class="track-details"><h4>Alas Dose</h4><p>Cup of Joe</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(1)"><div class="track-details"><h4>Purple</h4><p>Olivia Rodrigo</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(2)"><div class="track-details"><h4>Estranghero</h4><p>Cup of Joe</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(3)"><div class="track-details"><h4>Always</h4><p>Daniel Caesar</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(4)"><div class="track-details"><h4>Superpowers</h4><p>Daniel Caesar</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(5)"><div class="track-details"><h4>Walang Hangganan</h4><p>IV OF SPADES</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(6)"><div class="track-details"><h4>Tahanan</h4><p>Adie</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(7)"><div class="track-details"><h4>seasons</h4><p>wave to earth</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(8)"><div class="track-details"><h4>I Like Me Better</h4><p>Lauv</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(9)"><div class="track-details"><h4>Passenger Seat</h4><p>Stephen Speaks</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(10)"><div class="track-details"><h4>Ride Home</h4><p>Ben & Ben</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(11)"><div class="track-details"><h4>On the Wings of Love</h4><p>Kyla</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(12)"><div class="track-details"><h4>Patutunguhan</h4><p>Cup of Joe</p></div><span class="track-more">⋯</span></div>
+            <div class="track-item" onclick="playSong(13)"><div class="track-details"><h4>Tingin</h4><p>Cup of Joe</p></div><span class="track-more">⋯</span></div>
+          </div>
+        </div>
+
+        <div class="spotify-bottom-nav">
+          <div class="nav-tab active">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h5v-6h6v6h5V7.577l-7.5-4.33zM3 6.71l9-5.196 9 5.196V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-5h-2v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6.71z"/>
+            </svg>
+            <p>Home</p>
+          </div>
+          <div class="nav-tab">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <p>Search</p>
+          </div>
+          <div class="nav-tab">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="4" height="16" rx="1"/>
+              <rect x="10" y="4" width="4" height="16" rx="1"/>
+              <path d="M17 4l3 16" stroke-linecap="round"/>
+            </svg>
+            <p>Your Library</p>
+          </div>
+          <div class="nav-tab">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M7 10c4-1.5 7.5-.5 9.5.5M7.5 13.5c3.5-1 6.5-.2 8.5.5M8 17c3-.8 5.5-.1 7 .5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <p>Premium</p>
+          </div>
+          <div class="nav-tab">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <p>Create</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos App -->
+      <div id="gallery-app" class="app-window light-mode-photos ios27-photos">
+        <div id="photos-header" class="photos-sticky-header">
+          <span id="photos-header-title" class="photos-header-title">Library</span>
+        </div>
+
+        <div id="photos-body" class="app-body gallery-body" onscroll="handlePhotosScroll()">
+          <div id="photos-hero-section" class="photos-hero-section">
+            <h1 class="photos-large-title">Library</h1>
+            <button class="photos-select-btn glassy-select" onclick="alert('Select mode toggled')">Select</button>
+          </div>
+
+          <div class="gallery-grid" id="gallery-grid">
+            <div class="photo-card" style="background-image: url('IMG_1617.jpeg');" onclick="openPhotoViewer('IMG_1617.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1618.jpeg');" onclick="openPhotoViewer('IMG_1618.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1619.jpeg');" onclick="openPhotoViewer('IMG_1619.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1620.jpeg');" onclick="openPhotoViewer('IMG_1620.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1621.jpeg');" onclick="openPhotoViewer('IMG_1621.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1622.jpeg');" onclick="openPhotoViewer('IMG_1622.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1623.jpeg');" onclick="openPhotoViewer('IMG_1623.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1624.jpeg');" onclick="openPhotoViewer('IMG_1624.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_0986.jpeg');" onclick="openPhotoViewer('IMG_0986.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1983.jpeg');" onclick="openPhotoViewer('IMG_1983.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1984.jpeg');" onclick="openPhotoViewer('IMG_1984.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1982.jpeg');" onclick="openPhotoViewer('IMG_1982.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1980.jpeg');" onclick="openPhotoViewer('IMG_1980.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1979.jpeg');" onclick="openPhotoViewer('IMG_1979.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1978.jpeg');" onclick="openPhotoViewer('IMG_1978.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1977.jpeg');" onclick="openPhotoViewer('IMG_1977.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1972.jpeg');" onclick="openPhotoViewer('IMG_1972.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1971.jpeg');" onclick="openPhotoViewer('IMG_1971.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1974.jpeg');" onclick="openPhotoViewer('IMG_1974.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1976.jpeg');" onclick="openPhotoViewer('IMG_1976.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1973.jpeg');" onclick="openPhotoViewer('IMG_1973.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1970.jpeg');" onclick="openPhotoViewer('IMG_1970.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1969.jpeg');" onclick="openPhotoViewer('IMG_1969.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1968.jpeg');" onclick="openPhotoViewer('IMG_1968.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1634.jpeg');" onclick="openPhotoViewer('IMG_1634.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1633.jpeg');" onclick="openPhotoViewer('IMG_1633.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1635.jpeg');" onclick="openPhotoViewer('IMG_1635.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1631.jpeg');" onclick="openPhotoViewer('IMG_1631.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1630.jpeg');" onclick="openPhotoViewer('IMG_1630.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1629.jpeg');" onclick="openPhotoViewer('IMG_1629.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1628.jpeg');" onclick="openPhotoViewer('IMG_1628.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1627.jpeg');" onclick="openPhotoViewer('IMG_1627.jpeg')"></div>
+            <div class="photo-card" style="background-image: url('IMG_1626.jpeg');" onclick="openPhotoViewer('IMG_1626.jpeg')"></div>
+          </div>
+        </div>
+
+        <div class="photos-bottom-nav ios27-glass-bar-light">
+          <div class="photos-nav-circle-btn" onclick="alert('Photos view changed')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+          </div>
+          <div class="photos-capsule-nav">
+            <button class="capsule-tab" onclick="switchCapsule(this)">Years</button>
+            <button class="capsule-tab" onclick="switchCapsule(this)">Months</button>
+            <button class="capsule-tab active-capsule" onclick="switchCapsule(this)">All</button>
+          </div>
+          <div class="photos-nav-circle-btn" onclick="alert('Search clicked')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo Viewer Modal -->
+      <div id="photo-viewer-modal" class="ios-viewer-modal">
+        <div class="ios-viewer-top-bar">
+          <button class="ios-viewer-back-btn" onclick="closePhotoViewer()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="ios-viewer-date-capsule">
+            <span class="date-title" id="viewer-date-title">Today</span>
+            <span class="date-time" id="viewer-date-time">4:14 PM</span>
+          </div>
+          <button class="ios-viewer-more-btn" onclick="alert('Options menu')">•••</button>
+        </div>
+
+        <div class="ios-viewer-main-content" id="viewer-swipe-area">
+          <img id="viewer-img" src="" alt="Selected Photo" />
+        </div>
+
+        <div class="ios-viewer-bottom-container">
+          <div class="ios-thumbnail-carousel" id="ios-thumbnail-carousel"></div>
+          <div class="ios-viewer-toolbar">
+            <button class="toolbar-circle-btn" onclick="alert('Share simulated')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
+            <div class="toolbar-center-capsule">
+              <button class="capsule-icon-btn" onclick="toggleFavorite(this)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              <button class="capsule-icon-btn" onclick="alert('Photo info accessed')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </button>
+              <button class="capsule-icon-btn" onclick="alert('Edit mode')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              </button>
+            </div>
+            <button class="toolbar-circle-btn" onclick="alert('Delete photo')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes App -->
+      <div id="notes-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Back</button>
+          <span>Notes</span>
+        </div>
+        <div class="app-body notes-container">
+          <textarea id="user-note" placeholder="Start typing your note..."></textarea>
+        </div>
+      </div>
+
+      <!-- Clock App -->
+      <div id="clock-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Back</button>
+          <span>Clock</span>
+        </div>
+        <div class="app-body clock-body">
+          <h1 id="app-clock-display">7:55</h1>
+          <p>World Clock - Quezon City</p>
+        </div>
+      </div>
+
+      <!-- Instagram App -->
+      <div id="instagram-app" class="app-window instagram-app-window">
+        <!-- Top Nav -->
+        <div class="insta-top-nav">
+          <button class="insta-icon-btn" onclick="alert('Create Post')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="insta-logo-text" onclick="alert('Instagram Header')">
+            Instagram
+          </div>
+          <button class="insta-icon-btn" onclick="alert('Activity / Likes')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+
+        <!-- Pinned Stories Bar with Mapped IMG_2047 to IMG_2055 profile pictures -->
+        <div class="insta-stories-scroll">
+          <div class="insta-story-item">
+            <div class="story-ring self-story"><div class="story-avatar" style="background-image: url('IMG_1617.jpeg');"></div><div class="story-plus">+</div></div>
+            <span>Your story</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2047.jpeg');"></div></div>
+            <span>itskuan</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2048.jpeg');"></div></div>
+            <span>harurot</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2049.jpeg');"></div></div>
+            <span>hyundai</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2050.jpeg');"></div></div>
+            <span>zzzhang</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2051.jpeg');"></div></div>
+            <span>tsukimbapp</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2052.jpeg');"></div></div>
+            <span>itsyunah</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2053.jpeg');"></div></div>
+            <span>gyuvinch</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2054.jpeg');"></div></div>
+            <span>bossricky</span>
+          </div>
+          <div class="insta-story-item" onclick="alert('Viewing story')">
+            <div class="story-ring"><div class="story-avatar" style="background-image: url('IMG_2055.jpeg');"></div></div>
+            <span>keonsnah</span>
+          </div>
+        </div>
+
+        <!-- Scrollable Feed Container -->
+        <div class="insta-feed-container">
+          <div class="insta-feed">
+            <div class="insta-post-card">
+              <div class="insta-post-header">
+                <div class="poster-info">
+                  <div class="poster-avatar" style="background-image: url('IMG_2047.jpeg');"></div>
+                  <div class="poster-meta-text">
+                    <span class="poster-name">itskuan</span>
+                    <span class="poster-song">🎵 Go-Go's · Head Over Heels</span>
+                  </div>
+                </div>
+                <button class="poster-more" onclick="alert('Options')">=</button>
+              </div>
+              <div class="insta-post-img photo-content-post" style="width: 100%; aspect-ratio: 3 / 4; background: url('IMG_2058.jpeg') center/cover no-repeat;">
+              </div>
+              <div class="insta-post-actions" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px 6px 12px;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                  <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#ff3040" stroke="#ff3040" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    217
+                  </span>
+                  <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    123
+                  </span>
+                  <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                    92
+                  </span>
+                  <span style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    54
+                  </span>
+                </div>
+                <button style="background: none; border: none; cursor: pointer;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+              </div>
+              <div class="insta-post-caption" style="padding: 4px 12px 10px 12px; font-size: 13px; color: #000;">
+                <span style="font-weight: 600; margin-right: 6px;">itskuan</span>bob cut #mama
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="insta-bottom-nav">
+          <button class="insta-tab active" onclick="alert('Home')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.7 3.3c-.4-.4-1-.4-1.4 0l-8 7.2c-.5.4-.6 1.2-.2 1.7.4.5 1.2.6 1.7.2L6 11.4V20c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-8.6l.4.4c.5.4 1.2.3 1.7-.2.4-.5.3-1.2-.2-1.7l-8-7.2zM14 20h-4v-5c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v5z"/></svg>
+          </button>
+          <button class="insta-tab" onclick="alert('Reels')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          </button>
+          <button class="insta-tab dm-tab-icon" onclick="alert('Direct Messages')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span class="red-notification-dot"></span>
+          </button>
+          <button class="insta-tab" onclick="alert('Search & Explore')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+          <button class="insta-tab profile-tab-icon" onclick="alert('Profile')">
+            <div class="mini-profile-avatar" style="background-image: url('IMG_1617.jpeg');"></div>
+            <span class="red-notification-dot"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pinterest App -->
+      <div id="pinterest-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Back</button>
+          <span>Pinterest</span>
+        </div>
+        <div class="app-body pinterest-grid">
+          <div class="pin-card">📌 Aesthetic 1</div>
+          <div class="pin-card">📌 Aesthetic 2</div>
+          <div class="pin-card">📌 Outfit Idea</div>
+          <div class="pin-card">📌 Wallpaper</div>
+        </div>
+      </div>
+
+      <!-- Roblox App -->
+      <div id="roblox-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Back</button>
+          <span>Roblox</span>
+        </div>
+        <div class="app-body roblox-body">
+          <h2>ROBLOX</h2>
+          <div class="game-card">🎮 Dress To Impress</div>
+          <div class="game-card">🏠 Brookhaven RP</div>
+          <div class="game-card">🔪 Murder Mystery 2</div>
+        </div>
+      </div>
+
+      <!-- Settings App -->
+      <div id="settings-app" class="app-window">
+        <div class="app-header">
+          <button onclick="closeApp()">‹ Back</button>
+          <span>Settings</span>
+        </div>
+        <div class="app-body settings-list">
+          <div class="setting-item">
+            <span>Wi-Fi</span>
+            <span class="setting-val">Connected</span>
+          </div>
+          <div class="setting-item">
+            <span>Bluetooth</span>
+            <span class="setting-val">On</span>
+          </div>
+          <div class="setting-item">
+            <span>Passcode</span>
+            <span class="setting-val">1725</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Universal Home Bar -->
+      <div class="universal-home-bar" onclick="closeApp()"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
